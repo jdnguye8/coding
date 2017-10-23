@@ -7,6 +7,14 @@
 
 # dependencies
 /node_modules
+functions/node_modules
+!functions/*.js
+
+typings
+tsd_typings/
+npm-debug.log
+.idea
+*.map
 
 # IDEs and editors
 /.idea
