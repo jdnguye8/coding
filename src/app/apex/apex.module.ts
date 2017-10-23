@@ -5,7 +5,7 @@ import { ApexMainComponent } from './apex-main/apex-main.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
   declarations: [ApexMainComponent],
   providers: [ApexService]
