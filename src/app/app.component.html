@@ -3,7 +3,7 @@ mdl-layout--fixed-tabs">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Title</span>
+      <span class="mdl-layout-title">{{title}}</span>
     </div>
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
@@ -13,12 +13,16 @@ mdl-layout--fixed-tabs">
     </div>
   </header>
   <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
+    <span class="mdl-layout-title">{{title}}</span>
+    <nav class="mdl-navigation">
+        <a *ngFor="let nav of navigation" class="mdl-navigation__link" href="">{{nav.displayText}}</a>
+      </nav>
   </div>
   <main class="mdl-layout__content">
     <section *ngFor="let tab of tabs" class="mdl-layout__tab-panel" [ngClass]="{'is-active': tab.active}" [id]="tab.id">
         <div class="page-content">
           <h1>{{tab.name}}</h1>
+          <a routerLink="/register">Register</a>
             <router-outlet></router-outlet>
           </div>
     </section>
