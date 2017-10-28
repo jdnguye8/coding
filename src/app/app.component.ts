@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
 
 export interface tab {
   name: String, 
@@ -12,7 +16,8 @@ export interface nav {
   active: boolean,
   displayText: String,
   link: String, 
-  tabs: tab[],
+  tabs: tab[], 
+  navNumber: number
 }
 
 @Component({
@@ -21,31 +26,36 @@ export interface nav {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent{
+export class AppComponent implements OnInit{
   title = 'SWUVSA Apex-3';
   tabs: tab [] = [];
-  navigation: nav[];
-  constructor(){
-    this.tabs.push({name: "Main", tabNumber: 1, active: true, id: 'tab1'});
-    this.tabs.push({name: "Second", tabNumber: 2, active: false, id: 'tab2'});
-    this.tabs.push({name: "Third", tabNumber: 3, active: false, id: 'tab3'});
-    this.tabs.push({name: "Fourth", tabNumber: 4, active: false, id: 'tab4'});
+  currentNav: nav; 
+  
+  navigationCollection: AngularFirestoreCollection<nav>;
+  navigations: Observable<nav[]>;
+  constructor(private afs: AngularFirestore){}
 
-    this.navigation = [
-      {
-        name: "home", 
-        active: true,
-        displayText: "Home",
-        link: "/", 
-        tabs: [],
-      },
-      {
-        name: "apex-3", 
-        active: false,
-        displayText: "Apex-3",
-        link: "/register", 
-        tabs: [],
-      }
-    ]
+  ngOnInit(){
+    this.navigationCollection = this.afs.collection('navigation', ref => {
+      return ref.orderBy("navNumber");
+    });
+    this.navigations = this.navigationCollection.valueChanges();
+    this.navigations.subscribe(data => {
+      this.currentNav = data[0];
+      this.tabs = data[0].tabs;
+    }); // get the initial one 
+    // Update the tabs when switch views + etc
+    // this.navigations
+
+    
+    // console.log(this.navigations);
+  }
+  changeNav(nav){
+    this.currentNav = nav;
+    this.tabs = nav.tabs;
+  }
+  update(id){
+    let a = this.afs.doc('navigation/' + id);
+    a.update({tabs: this.tabs});
   }
 }

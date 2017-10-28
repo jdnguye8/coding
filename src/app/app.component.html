@@ -15,7 +15,7 @@ mdl-layout--fixed-tabs">
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">{{title}}</span>
     <nav class="mdl-navigation">
-        <a *ngFor="let nav of navigation" class="mdl-navigation__link" href="">{{nav.displayText}}</a>
+        <a *ngFor="let nav of navigations | async" class="mdl-navigation__link" (click)="changeNav(nav)" [routerLink]="nav.link">{{nav.displayText}}</a>
       </nav>
   </div>
   <main class="mdl-layout__content">

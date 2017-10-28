@@ -18,7 +18,7 @@ const routerRoutes = [
     component: ApexMainComponent
   }, 
   {
-    path: 'register',
+    path: 'apex-3',
     component: ApexMainComponent
   },
   {
