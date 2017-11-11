@@ -7,7 +7,7 @@ mdl-layout--fixed-tabs">
     </div>
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a *ngFor="let tab of tabs" [href]="'#'+tab.id" [ngClass]="{'mdl-layout__tab': true, 'is-active': tab.active}">
+      <a *ngFor="let tab of tabs" [href]="'#'+tab.id" (click)="changeTab(tab)" [ngClass]="{'mdl-layout__tab': true, 'is-active': tab.active}">
         {{tab.name}}
       </a>
     </div>
@@ -15,7 +15,7 @@ mdl-layout--fixed-tabs">
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">{{title}}</span>
     <nav class="mdl-navigation">
-        <a *ngFor="let nav of navigations | async" class="mdl-navigation__link" (click)="changeNav(nav)" [routerLink]="nav.link">{{nav.displayText}}</a>
+        <a *ngFor="let nav of navs" class="mdl-navigation__link" (click)="changeNav(nav)" [routerLink]="nav.link">{{nav.displayText}}</a>
       </nav>
   </div>
   <main class="mdl-layout__content">

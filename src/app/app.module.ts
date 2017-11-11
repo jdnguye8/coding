@@ -9,9 +9,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Service
+import { AppService } from './app.service';
+
+
 // Components
 
-import { ApexMainComponent } from './apex/apex-main/apex-main.component';
+import { ApexMainComponent } from './apex-main/apex-main.component';
 const routerRoutes = [
   {
     path: '',
@@ -32,10 +36,13 @@ const routerRoutes = [
     BrowserModule, 
     RouterModule.forRoot(routerRoutes),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [
+    AppService
+  ],
   declarations: [
     AppComponent, 
     ApexMainComponent
